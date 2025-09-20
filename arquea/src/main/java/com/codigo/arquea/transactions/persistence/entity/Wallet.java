@@ -6,24 +6,23 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity
-@Table(name = "account_types")
+@Table(name = "wallets")
 @Getter
 @Setter
-public class AccountType {
+public class Wallet {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
     private String name;
-    private String description;
+    private String descripcion;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 
-    public AccountType() {}
-
-    public AccountType(long id, String name, String description) {
-        this.id = id;
-        this.name = name;
-        this.description = description;
-    }
+    @ManyToMany(mappedBy = "wallets")
+    private Set<Business> businesses = new HashSet<>();
 }

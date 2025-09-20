@@ -18,6 +18,8 @@ public class Account {
     private long id;
     private String name;
     private String description;
+    private double initialBalance;
+    private double finalBalance;
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
 

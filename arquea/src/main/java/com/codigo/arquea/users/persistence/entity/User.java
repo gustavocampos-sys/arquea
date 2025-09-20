@@ -1,5 +1,6 @@
 package com.codigo.arquea.users.persistence.entity;
 
+import com.codigo.arquea.transactions.persistence.entity.Wallet;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -45,8 +46,8 @@ public class User {
     })
     //Crea como una tabla intermedia
     @JoinTable(name = "user_roles",
-            joinColumns = @JoinColumn(name = "user_id",referencedColumnName = "id" ),
-            inverseJoinColumns = @JoinColumn(name = "role_id",referencedColumnName = "id")
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id")
     )
     private Set<Role> roles = new HashSet<>();
 
