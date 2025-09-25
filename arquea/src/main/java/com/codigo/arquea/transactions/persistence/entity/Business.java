@@ -18,18 +18,24 @@ public class Business {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-    private String name;
-    private String description;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String name; // Nombre del negocio o empresa
+    private String description; // Descripcion del negocio opcional
+    private LocalDateTime createdAt; // Fecha de creacion
+    private LocalDateTime updatedAt; // Fecha de actualizacion
 
-    @ManyToMany(cascade = {
-            CascadeType.PERSIST,
-            CascadeType.MERGE
-    })
-    @JoinTable(name = "business_wallet",
-            joinColumns = @JoinColumn(name = "business_id"),
-            inverseJoinColumns = @JoinColumn(name = "wallet_id")
-    )
-    private Set<Wallet> wallets = new HashSet<>();
+    // Relacion de uno a muchos de negocio a sesiones (un negocio puede tener muchas sesiones)
+    @OneToMany(cascade = CascadeType.ALL)
+    @JoinColumn(name = "business_id")
+    private Set<DailySession> sessions = new HashSet<>(); // Lista de sesiones
+
+    public Business() {}
+
+    public Business(long id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, Set<DailySession> sessions) {
+        this.id = id;
+        this.name = name;
+        this.description = description;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
+        this.sessions = sessions;
+    }
 }
