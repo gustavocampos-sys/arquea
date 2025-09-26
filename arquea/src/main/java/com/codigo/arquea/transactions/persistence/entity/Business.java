@@ -1,5 +1,6 @@
 package com.codigo.arquea.transactions.persistence.entity;
 
+import com.codigo.arquea.users.persistence.entity.User;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,19 +24,19 @@ public class Business {
     private LocalDateTime createdAt; // Fecha de creacion
     private LocalDateTime updatedAt; // Fecha de actualizacion
 
-    // Relacion de uno a muchos de negocio a sesiones (un negocio puede tener muchas sesiones)
-    @OneToMany(cascade = CascadeType.ALL)
-    @JoinColumn(name = "business_id")
-    private Set<DailySession> sessions = new HashSet<>(); // Lista de sesiones
+    // Establece la relacion de muchos a uno con los usuarios (Muchos negocios pueden tener el mismo usuario)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id",nullable = false)
+    private User user;
 
     public Business() {}
 
-    public Business(long id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, Set<DailySession> sessions) {
+    public Business(long id, String name, String description, LocalDateTime createdAt, LocalDateTime updatedAt, User user) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
-        this.sessions = sessions;
+        this.user = user;
     }
 }

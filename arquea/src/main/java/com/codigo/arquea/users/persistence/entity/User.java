@@ -22,7 +22,7 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Integer id;
     private String username;
     private String email;
 
@@ -38,7 +38,7 @@ public class User {
 
     public User() {}
 
-    public User(long id, String username, String password, String email, String firstName, String lastName, String profileImageUrl, boolean isActive, boolean isVerified, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public User(Integer id, String username, String password, String email, String firstName, String lastName, String profileImageUrl, boolean isActive, boolean isVerified, LocalDateTime createdAt, LocalDateTime updatedAt) {
         this.id = id;
         this.username = username;
         this.password = password;

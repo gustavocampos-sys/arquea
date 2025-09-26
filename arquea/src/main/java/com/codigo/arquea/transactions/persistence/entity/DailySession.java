@@ -22,26 +22,22 @@ public class DailySession {
     private LocalDateTime openedAt; // Fecha de apertura de la session
     private LocalDateTime closedAt; // Fecha de cierre de la session
     private String status; // Estado de la session (Abierto o Cerrado)
-
-    //private Integer bussinesId; // Id del negocio al que pertenece la session
-
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "daily_session_id")
-    private List<Account> accounts = new ArrayList<>(); // Cuentas de la sesion
-
-    //private Integer openBy; // Id del usuario que realizo la apertura
-    //private Integer closeBy; // Id del usuario que realizo el cierre
     private boolean autoOpen; // Define si se abre con valores iniciales predeterminados
+
+    // Establece la relacion de muchos a uno con el negocio (Muchas sesiones diarias pueden pertenecer a un mismo negocio)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "business_id",nullable = false)
+    private Business business;
 
     public DailySession() {}
 
-    public DailySession(Long id, String sessionDate, LocalDateTime openedAt, LocalDateTime closedAt, String status, List<Account> accounts, boolean autoOpen) {
+    public DailySession(Long id, String sessionDate, LocalDateTime openedAt, LocalDateTime closedAt, String status, boolean autoOpen, Business business) {
         this.id = id;
         this.sessionDate = sessionDate;
         this.openedAt = openedAt;
         this.closedAt = closedAt;
         this.status = status;
-        this.accounts = accounts;
         this.autoOpen = autoOpen;
+        this.business = business;
     }
 }

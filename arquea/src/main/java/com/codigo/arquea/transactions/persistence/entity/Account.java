@@ -25,9 +25,14 @@ public class Account {
     private LocalDateTime createdAt; // Fecha de creacion
     private LocalDateTime updatedAt; // Fecha de actualizacion
 
+    // Establece la relacion de muchos a uno de cuentas a sesiones diarias (muchas cuentas pueden tener uns misma sesion)
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "daily_session_id",nullable = false)
+    private DailySession dailySession;
+
     public Account() {}
 
-    public Account(long id, String name, String description, double initialBalance, double finalBalance, String accountType,boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Account(long id, String name, String description, double initialBalance, double finalBalance, String accountType, boolean isActive, LocalDateTime createdAt, LocalDateTime updatedAt, DailySession dailySession) {
         this.id = id;
         this.name = name;
         this.description = description;
@@ -37,6 +42,7 @@ public class Account {
         this.isActive = isActive;
         this.createdAt = createdAt;
         this.updatedAt = updatedAt;
+        this.dailySession = dailySession;
     }
 }
 
